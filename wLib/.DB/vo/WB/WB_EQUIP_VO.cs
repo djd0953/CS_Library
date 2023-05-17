@@ -56,6 +56,7 @@ namespace wLib.DB
         public string Lon { get; set; }
 
         // TEMP COLUMN
+        public string DsCode { get; set; }
         public int sub_obsv { get; set; }
         public string Data { get; set; }
         public DateTime logger_time { get; set; }
@@ -129,14 +130,27 @@ namespace wLib.DB
 
                 sub_obsv = sub_obsv,
                 Data = Data,
-        };
+            };
 
             return rtv;
         }
 
         public int CompareTo(WB_EQUIP_VO other)
         {
-            return string.Compare(this.Cd_dist_obsv, other.Cd_dist_obsv);
+            try
+            {
+                if (int.TryParse(this.Cd_dist_obsv, out var A) && int.TryParse(other.Cd_dist_obsv, out var B))
+                {
+                    if (A == B) return this.sub_obsv - other.sub_obsv;
+                    else        return A - B;
+                }
+
+                return string.Compare(this.Cd_dist_obsv, other.Cd_dist_obsv);
+            }
+            catch
+            {
+                return string.Compare(this.Cd_dist_obsv, other.Cd_dist_obsv);
+            }
         }
     }
 }

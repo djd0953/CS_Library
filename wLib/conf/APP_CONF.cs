@@ -277,7 +277,7 @@ namespace wLib
         public string Title { get; set; } = "우보재난시스템";
         public int Top { get; set; } = 0;
         public int Left { get; set; } = 0;
-        public int Width { get; set; } = 400;
+        public int Width { get; set; } = 450;
         public int Height { get; set; } = 500;
         public int State { get; set; } = 0;
         public bool Visible { get; set; } = true;

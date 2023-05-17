@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using wLib.UI.settingPage;
+//using wLib.UI.settingPage;
 
 namespace TEST_WF
 {
@@ -17,10 +17,11 @@ namespace TEST_WF
         {
             InitializeComponent();
 
-            IDBPanelView view = new DBPanelView();
-            IDBPanelRepository repository = new DBRepository();
-            new DBPanelPresenter(view, repository);
-            panel1 = (Panel)view;
+            // 계속 에러문구 떠있어서 주석처리좀 해둘게요 ㅠㅠ
+            //IDBPanelView view = new DBPanelView();
+            //IDBPanelRepository repository = new DBRepository();
+            //new DBPanelPresenter(view, repository);
+            //panel1 = (Panel)view;
         }
     }
 }

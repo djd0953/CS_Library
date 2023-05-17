@@ -24,5 +24,7 @@ namespace wLib
         public string Obsr_dttm { get; set; } // PK
         public string Obsr_gb { get; set; } // PK
         public string Obsr_value { get; set; }
+        public string table_name { get; set; } = "TCM_COU_DD_OBSV";
+        public string table_comment { get; set; } = "재해위험개선지구";
     }
 }

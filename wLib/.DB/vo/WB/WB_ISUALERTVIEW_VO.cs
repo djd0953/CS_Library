@@ -12,7 +12,7 @@ namespace wLib.DB
         {
             get
             {
-                return AltCode;
+                return $"{GCode}_{AltCode}";
             }
         }
 

@@ -208,9 +208,18 @@ namespace wLib.DB
 
                             try
                             {
-                                vo.Data = Convert.ToString(row["Data"]);
+                                if (row.Table.Columns.Contains("Data"))
+                                {
+                                    vo.Data = Convert.ToString(row["Data"]);
+                                }
                             }
                             catch { vo.Data = ""; }
+
+                            try
+                            {
+                                vo.DsCode = Convert.ToString(row["DSCODE"]);
+                            }
+                            catch { }
 
                             try
                             {

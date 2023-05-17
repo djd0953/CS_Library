@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using wLib.UI.settingPage;
+//using wLib.UI.settingPage;
 
 namespace TEST_WF
 {

@@ -12,12 +12,9 @@ using static System.Net.WebRequestMethods;
 
 namespace wLib.DB
 {
-    public class NDMS_ADM_DAO
+    public class NDMS_ADM_DAO : DAO_T
     {
         protected LOG_T log = LOG_T.Instance;
-        protected MYSQL_T mysql;
-
-        protected string table_code = "data";
 
         public NDMS_ADM_DAO()
         {
@@ -26,10 +23,11 @@ namespace wLib.DB
 
         public NDMS_ADM_DAO(MYSQL_T mysql)
         {
-            this.mysql = mysql;
+            base.mysql = mysql;
+            base.table = "TCM_COU_DNGR_AMD";
         }
 
-        public int CREATE_ADM()
+        public int Create_Adm()
         {
             string sql;
             int rtv = 0;
@@ -77,7 +75,7 @@ namespace wLib.DB
             return rtv;
         }
 
-        public int CREATE_DSRISK()
+        public int Create_Dsrisk()
         {
             string sql;
             int rtv = 0;

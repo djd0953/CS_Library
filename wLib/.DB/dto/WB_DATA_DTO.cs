@@ -24,23 +24,27 @@ namespace wLib
         public DateTime Datatime { get; set; } = new DateTime();
         public string Value { get; set; }
 
+        // DPLACE TEMP COLUMN
+        public string standValue { get; set; }
+
         public WB_DATA_DTO()
         {
 
         }
 
-        public WB_DATA_DTO(WB_DATA_TYPE type, string cd_dist_obsv, string sub_obsv, DateTime datatime, string value)
+        public WB_DATA_DTO(WB_DATA_TYPE type, string cd_dist_obsv, string sub_obsv, DateTime datatime, string value, string standvalue = null)
         {
             Type = type;
             Cd_dist_obsv = cd_dist_obsv;
             Sub_obsv = sub_obsv;
             Datatime = datatime;
             Value = value;
+            standValue = standValue;
         }
 
         public object Clone()
         {
-            return new WB_DATA_DTO(Type, Cd_dist_obsv, Sub_obsv, Datatime, Value);
+            return new WB_DATA_DTO(Type, Cd_dist_obsv, Sub_obsv, Datatime, Value, standValue);
         }
     }
 }

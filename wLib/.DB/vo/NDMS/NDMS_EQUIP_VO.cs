@@ -55,6 +55,8 @@ namespace wLib.DB
         public int sub_obsv { get; set; }
         public string Data { get; set; }
         public DateTime logger_time { get; set; }
+        public string table_name { get; set; } = "TCM_COU_DD_OBSV";
+        public string table_comment { get; set; } = "재해위험개선지구";
 
         // NDMS COLUMN
         public string Dscode { get; set; } // 법정동코드(5자) + 구분코드(1자) + 일련번호(4자)

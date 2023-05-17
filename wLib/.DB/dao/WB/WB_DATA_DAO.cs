@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 
 namespace wLib.DB
 {
@@ -97,17 +100,20 @@ namespace wLib.DB
                         }
                         else if (dto.Type == WB_DATA_TYPE.FLOOD)
                         {
-                            sb.Append("`yester` DECIMAL(11,3) NULL DEFAULT NULL COMMENT '전일값', ");
-                            sb.Append("`today` DECIMAL(11,3) NULL DEFAULT NULL COMMENT '금일값', ");
-                            sb.Append("`now` DECIMAL(11,3) NULL DEFAULT NULL COMMENT '현재값', ");
+                            sb.Append("`yester` VARCHAR(15) NULL DEFAULT NULL COMMENT '전일값' COLLATE 'utf8_general_ci', ");
+                            sb.Append("`today` VARCHAR(15) NULL DEFAULT NULL COMMENT '전일값' COLLATE 'utf8_general_ci', ");
+                            sb.Append("`now` VARCHAR(15) NULL DEFAULT NULL COMMENT '전일값' COLLATE 'utf8_general_ci', ");
                         }
 
                         sb.Append("`dtmCreate` DATETIME DEFAULT current_timestamp() COMMENT 'AUTO_CREATE', ");
                         sb.Append("`dtmUpdate` DATETIME DEFAULT NULL ON UPDATE current_timestamp() COMMENT 'AUTO_UPDATE', ");
-                        sb.Append("PRIMARY KEY(`CD_DIST_OBSV`, `RegDate`), ");
-                        sb.Append($"CONSTRAINT `FK_wb_{table}dis_wb_equip` FOREIGN KEY (`CD_DIST_OBSV`) REFERENCES `wb_equip`(`CD_DIST_OBSV`) ON UPDATE CASECADE ON DELETE CASCADE");
-                        sb.Append(") ENGINE = InnoDB COLLATE = 'utf8_general_ci';");
+                        sb.Append($"PRIMARY KEY(`CD_DIST_OBSV`{(dto.Type == WB_DATA_TYPE.DPLACE ? ", `SUB_OBSV`" : "")}) USING BTREE,");
+                        sb.Append($"INDEX `FK_{table}_wb_equip` (`CD_DIST_OBSV`) USING BTREE,");
+                        sb.Append($"CONSTRAINT `FK_{table}_wb_equip` FOREIGN KEY(`CD_DIST_OBSV`) REFERENCES `wb_equip` (`CD_DIST_OBSV`) ON UPDATE CASCADE ON DELETE NO ACTION )");
+                        sb.Append($"COLLATE = 'utf8_general_ci' ENGINE = InnoDB;");
                         sb.Append("COMMIT;");
+
+                        sql = sb.ToString();
                     }
 
                     rtv = mysql.ExecuteNonQuery(sql);
@@ -372,82 +378,6 @@ namespace wLib.DB
             catch (Exception ex)
             {
                 log.Info(LOG_TYPE.UI, $"{GetType().Name}::{MethodBase.GetCurrentMethod().Name}(): 테이블 생성 실패({mysql.Ip}:{mysql.Port}.{table}): {ex.Message}");
-                throw;
-            }
-
-            return rtv;
-        }
-
-        public string SELECT_dis(WB_DATA_DTO dto, string rainTime = null)
-        {
-            // TABLE
-            string table;
-            // PK
-            string cd_dist_obsv;
-            // FK
-            string sub_obsv;
-            // COLUMN
-            string column;
-            // SQL
-            string sql;
-
-            string rtv;
-
-            try
-            {
-                // CREATE SQL
-                {
-                    if (dto.Type == WB_DATA_TYPE.RAIN && rainTime == null)
-                    {
-                        throw new Exception("RainTime is Null");
-                    }
-
-                    table = $"wb_{table_code}dis";
-                    cd_dist_obsv = dto.Cd_dist_obsv;
-                    sub_obsv = dto.Sub_obsv;
-
-                    switch (dto.Type)
-                    {
-                        case WB_DATA_TYPE.RAIN:
-                            column = $"mov_{rainTime}h";
-                            break;
-                        case WB_DATA_TYPE.WATER:
-                            column = "water_today";
-                            break;
-                        case WB_DATA_TYPE.DPLACE:
-                            column = "CONCAT(dplace_change,'/',dplace_speed)";
-                            break;
-                        case WB_DATA_TYPE.SOIL:
-                            column = "today";
-                            break;
-                        case WB_DATA_TYPE.SNOW:
-                            column = "snow_today";
-                            break;
-                        case WB_DATA_TYPE.TILT:
-                            column = "today";
-                            break;
-                        case WB_DATA_TYPE.FLOOD:
-                            column = "today";
-                            break;
-                        default:
-                            throw new Exception();
-                    }
-
-                    // SQL
-                    sql = $"SELECT {column} " +
-                          $"FROM {table} " +
-                          $"WHERE cd_dist_obsv = '{cd_dist_obsv}' ";
-
-                    if (dto.Type == WB_DATA_TYPE.DPLACE && sub_obsv != "")
-                    {
-                        sql += $"AND sub_obsv = '{sub_obsv}'";
-                    }
-                }
-
-                rtv = mysql.ExecuteScalar<string>(sql);
-            }
-            catch
-            {
                 throw;
             }
 
@@ -1233,6 +1163,188 @@ namespace wLib.DB
                     if (dto.Type == WB_DATA_TYPE.DPLACE && sub_obsv != "")
                     {
                         sb.Append($"AND sub_obsv = '{sub_obsv}'");
+                    }
+
+                    sql = sb.ToString();
+                }
+
+                rtv = mysql.ExecuteNonQuery(sql);
+            }
+            catch
+            {
+                throw;
+            }
+
+            return rtv;
+        }
+
+        public string SELECT_dis(WB_DATA_DTO dto, string rainTime = null)
+        {
+            // TABLE
+            string table;
+            // PK
+            string cd_dist_obsv;
+            // FK
+            string sub_obsv;
+            // COLUMN
+            string column;
+            // SQL
+            string sql;
+
+            string rtv;
+
+            try
+            {
+                // CREATE SQL
+                {
+                    if (dto.Type == WB_DATA_TYPE.RAIN && rainTime == null)
+                    {
+                        throw new Exception("RainTime is Null");
+                    }
+
+                    table = $"wb_{table_code}dis";
+                    cd_dist_obsv = dto.Cd_dist_obsv;
+                    sub_obsv = dto.Sub_obsv;
+
+                    switch (dto.Type)
+                    {
+                        case WB_DATA_TYPE.RAIN:
+                            column = $"mov_{rainTime}h";
+                            break;
+                        case WB_DATA_TYPE.WATER:
+                            column = "water_now";
+                            break;
+                        case WB_DATA_TYPE.DPLACE:
+                            column = "CONCAT(dplace_change,'/',dplace_speed)";
+                            break;
+                        case WB_DATA_TYPE.SOIL:
+                            column = "now";
+                            break;
+                        case WB_DATA_TYPE.SNOW:
+                            column = "snow_hour";
+                            break;
+                        case WB_DATA_TYPE.TILT:
+                            column = "now";
+                            break;
+                        case WB_DATA_TYPE.FLOOD:
+                            column = "now";
+                            break;
+                        default:
+                            throw new Exception();
+                    }
+
+                    // SQL
+                    sql = $"SELECT {column} " +
+                          $"FROM {table} " +
+                          $"WHERE CD_DIST_OBSV = '{cd_dist_obsv}' AND RegDate >= '{dto.Datatime.AddMinutes(-2).ToString("yyyy-MM-dd HH:mm")}:00'";
+
+                    if (dto.Type == WB_DATA_TYPE.DPLACE && sub_obsv != "")
+                    {
+                        sql += $"AND sub_obsv = '{sub_obsv}'";
+                    }
+                }
+
+                rtv = mysql.ExecuteScalar<string>(sql);
+            }
+            catch
+            {
+                throw;
+            }
+
+            return rtv;
+        }
+
+        public virtual int Insert_dis(WB_DATA_DTO dto)
+        {
+            // TABLE
+            string table, data_table;
+            // PK
+            string cd_dist_obsv, regdate;
+            // SQL
+            string sql, sub_query;
+
+            int rtv;
+            DateTime settingTime = dto.Datatime;
+
+            CREATE_dis(dto);
+
+            // 1시간 데이터 입력
+            try
+            {
+                table = $"wb_{table_code}dis";
+                data_table = $"wb_{table_code}1min_{settingTime:yyyy}";
+                regdate = $"{dto.Datatime:yyyy-MM-dd HH:mm:ss}";
+                cd_dist_obsv = dto.Cd_dist_obsv;
+
+                sub_query = $"SELECT * FROM {data_table} WHERE CD_DIST_OBSV = '{cd_dist_obsv}' AND RegDate >= '{settingTime.AddDays(-2):yyyyMMdd}00' ORDER BY RegDate ASC";
+                List<WB_DATA_DTO> list = new List<WB_DATA_DTO>();
+                DataTable dt = mysql.ExecuteReader(sub_query);
+                foreach (DataRow row in dt.Rows)
+                {
+                    // WeatherSI Program이 MRMin 데이터를 믿을 수 있는 데이터로 바꿨다고 가정하고 로직 구성
+                    string[] dataArr = row["MRMin"].ToString().Split('/');
+                    string year = row["RegDate"].ToString().Substring(0, 4);
+                    string month = row["RegDate"].ToString().Substring(4, 2);
+                    string day = row["RegDate"].ToString().Substring(6, 2);
+                    string hour = row["RegDate"].ToString().Substring(8, 2);
+
+                    for(int i = 0; i < dataArr.Length; i++) 
+                    {
+                        string minute = i.ToString("D2");
+                        if (double.TryParse(dataArr[i], out double value)) 
+                        {
+                            WB_DATA_DTO data_dto = new WB_DATA_DTO()
+                            {
+                                Cd_dist_obsv = cd_dist_obsv,
+                                Datatime = Convert.ToDateTime($"{year}-{month}-{day} {hour}:{minute}:00"),
+                                Value = value.ToString()
+                            };
+                            list.Add(data_dto);
+                        };
+                    }
+                }
+
+                double yester = list.FindAll(x => x.Datatime.ToString("yyyyMMdd") == settingTime.AddDays(-1).ToString("yyyyMMdd")).Max( x => double.Parse(x.Value));
+                double today = list.FindAll(x => x.Datatime.ToString("yyyyMMdd") == settingTime.ToString("yyyyMMdd")).Max( x => double.Parse(x.Value));
+                string now = list.Last().Value.ToString();
+
+                StringBuilder sb = new StringBuilder();
+                {
+                    sb.Append($"INSERT INTO {table} ");
+                    
+                    if (dto.Type == WB_DATA_TYPE.WATER)
+                    {
+                        sb.Append("(CD_DIST_OBSV, RegDate, water_yester, water_today, water_now)");
+                    }
+                    else if (dto.Type == WB_DATA_TYPE.SNOW)
+                    {
+                        sb.Append("(CD_DIST_OBSV, RegDate, snow_yester, snow_today, snow_hour)");
+                    }
+                    else
+                    {
+                        sb.Append("(CD_DIST_OBSV, RegDate, yester, today, now)");
+                    }
+
+                    sb.Append($" VALUES ('{cd_dist_obsv}', '{regdate}', {yester}, {today}, {now}) ");
+                    sb.Append($"ON DUPLICATE KEY UPDATE ");
+
+                    if (dto.Type == WB_DATA_TYPE.WATER)
+                    {
+                        sb.Append($"water_yester = {yester}, ");
+                        sb.Append($"water_today = {today}, ");
+                        sb.Append($"water_now = {now}");
+                    }
+                    else if (dto.Type == WB_DATA_TYPE.SNOW)
+                    {
+                        sb.Append($"snow_yester = {yester}, ");
+                        sb.Append($"snow_today = {today}, ");
+                        sb.Append($"snow_hour = {now}");
+                    }
+                    else
+                    {
+                        sb.Append($"yester = {yester}, ");
+                        sb.Append($"today = {today}, ");
+                        sb.Append($"now = {now}");
                     }
 
                     sql = sb.ToString();

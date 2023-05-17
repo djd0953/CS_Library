@@ -104,30 +104,27 @@ namespace wLib.DB
         }
 
         // TEMP COLUMN
+        public string IsuCode { get; set; }
         public int NowLevel { get; set; }
         public string AlertDate { get; set; }
-
-        public object SetData(WB_ISUALERTGROUP_VO vo)
+        public string retreat { get; set; } = null;
+        public void SetData(WB_ISUALERTGROUP_VO vo)
         {
-            WB_ISUALERTGROUP_VO rtv = new WB_ISUALERTGROUP_VO()
-            {
-                GCode = vo.GCode,
-                GName = vo.GName,
-                AltCode = vo.AltCode,
-                AltDate = vo.AltDate,
-                AltUse = vo.AltUse,
-                AdmSMS = vo.AdmSMS,
+            GCode = vo.GCode;
+            GName = vo.GName;
+            AltCode = vo.AltCode;
+            AltDate = vo.AltDate;
+            AltUse = vo.AltUse;
+            AdmSMS = vo.AdmSMS;
 
-                FloodSMSAuto = vo.FloodSMSAuto,
-                Auto = vo.Auto,
-                Equip = vo.Equip,
-                SMS = vo.SMS,
+            FloodSMSAuto = vo.FloodSMSAuto;
+            Auto = vo.Auto;
+            Equip = vo.Equip;
+            SMS = vo.SMS;
 
-                NowLevel = vo.NowLevel,
-                AlertDate = vo.AlertDate
-            };
-
-            return rtv;
+            IsuCode = vo.IsuCode;
+            NowLevel = vo.NowLevel;
+            AlertDate = vo.AlertDate;
         }
     }
 }

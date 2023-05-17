@@ -104,7 +104,7 @@ namespace wLib.DB
 
                         try
                         {
-                            vo.JHPhone = Convert.ToString(row["ConnPhone"]);
+                            vo.JHPhone = Convert.ToString(row["JHPhone"]);
                         }
                         catch { }
 

@@ -23,7 +23,6 @@ namespace wLib.DB
         public string Parm1 { get; set; }
         public string Parm2 { get; set; }
         public string Parm3 { get; set; }
-        public string Parm4 { get; set; }
 
         public string RegDate { get; set; }
         public string BStatus { get; set; }
@@ -39,7 +38,6 @@ namespace wLib.DB
             Parm1 = vo.Parm1;
             Parm2 = vo.Parm2;
             Parm3 = vo.Parm3;
-            Parm4 = vo.Parm4;
 
             RegDate = vo.RegDate;
             BStatus = vo.BStatus;
