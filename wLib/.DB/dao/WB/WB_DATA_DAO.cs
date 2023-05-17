@@ -436,7 +436,7 @@ namespace wLib.DB
                     // SQL
                     sql = $"SELECT {column} " +
                           $"FROM {table} " +
-                          $"WHERE cd_dist_obsv = '{cd_dist_obsv}' ";
+                          $"WHERE CD_DIST_OBSV = '{cd_dist_obsv}' AND RegDate >= '{dto.Datatime.AddMinutes(-2).ToString("yyyy-MM-dd HH:mm")}:00'";
 
                     if (dto.Type == WB_DATA_TYPE.DPLACE && sub_obsv != "")
                     {

@@ -12,36 +12,36 @@ using static System.Net.WebRequestMethods;
 
 namespace wLib.DB
 {
-    public class NDMS_ALERT_DAO
+    public class NDMS_ALMORD_DAO
     {
         protected LOG_T log = LOG_T.Instance;
         protected MYSQL_T mysql;
 
-        protected string table_code = "data";
+        protected string table = "TCM_COU_DNGR_ALMORD";
 
-        public NDMS_ALERT_DAO()
+        public NDMS_ALMORD_DAO()
         {
 
         }
 
-        public NDMS_ALERT_DAO(MYSQL_T mysql)
+        public NDMS_ALMORD_DAO(MYSQL_T mysql)
         {
             this.mysql = mysql;
         }
 
-        public int CREATE_ALERT()
+        public int CREATE()
         {
             string sql;
             int rtv = 0;
 
             try
             {
-                sql = "SHOW TABLES LIKE 'TCM_COU_DNGR_ALMORD'";
+                sql = $"SHOW TABLES LIKE '{table}'";
                 if (mysql.ExecuteScalar(sql) == null)
                 {
                     StringBuilder sb = new StringBuilder();
                     {
-                        sb.Append("CREATE TABLE `tcm_cou_dngr_almord` (");
+                        sb.Append($"CREATE TABLE `{table}` (");
                         sb.Append("`DSCODE` CHAR(10) NOT NULL COMMENT '재해위험지구코드/시설물 코드' COLLATE 'utf8_general_ci',");
                         sb.Append("`ALMCODE` CHAR(2) NOT NULL COMMENT '경보코드' COLLATE 'utf8_general_ci',");
                         sb.Append("`ALMDE` VARCHAR(14) NOT NULL COMMENT '경보발령일시' COLLATE 'utf8_general_ci',");
@@ -74,41 +74,70 @@ namespace wLib.DB
                 throw;
             }
 
+            return rtv;
+        }
+
+        public int EndBeforeAlmord(NDMS_ALMORD_VO vo)
+        {
+            string sql;
+            int rtv;
+
             try
             {
-                sql = "SHOW TABLES LIKE 'TCM_COU_CRIT_OBSV'";
-                if (mysql.ExecuteScalar(sql) == null)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    {
-                        sb.Append("CREATE TABLE `tcm_cou_crit_obsv` (");
-                        sb.Append("`DSCODE` CHAR(10) NOT NULL COMMENT '재해위험지구코드/시설물 코드' COLLATE 'utf8_general_ci',");
-                        sb.Append("`CD_DIST_OBSV` INT(4) NOT NULL COMMENT '계측기 순번',");
-                        sb.Append("`GB_OBSV` CHAR(2) NULL DEFAULT NULL COMMENT '계측기 구분' COLLATE 'utf8_general_ci',");
-                        sb.Append("`LEV_VALUE` DECIMAL(10, 7) NULL DEFAULT NULL COMMENT '임계치 값',");
-                        sb.Append("`CRIT_LEVEL` INT(1) NOT NULL COMMENT '임계치 단계',");
-                        sb.Append("PRIMARY KEY(`DSCODE`, `CD_DIST_OBSV`, `CRIT_LEVEL`) USING BTREE)");
-                        sb.Append("COMMENT = '계측/관측 센서 임계치 기본 정보'");
-                        sb.Append("COLLATE = 'utf8_general_ci' ENGINE = InnoDB;");
-
-
-                        sql = sb.ToString();
-                    }
-                    rtv = 0;
-                    rtv = mysql.ExecuteNonQuery(sql);
-                    if (rtv == -1)
-                    {
-                        log.Info(LOG_TYPE.UI, $"{GetType().Name}::{MethodBase.GetCurrentMethod().Name}(): 테이블 생성 실패({mysql.Ip}:{mysql.Port}.OBSV): {sql}");
-                    }
-                    else
-                    {
-                        log.Info($"{GetType().Name}::{MethodBase.GetCurrentMethod().Name}(): 테이블 생성 성공({mysql.Ip}:{mysql.Port}.OBSV)");
-                    }
-                }
+                sql = $"UPDATE {table} SET ALMGB = '2' WHERE CD_DIST_OBSV = {vo.Cd_dist_obsv}";
+                rtv = mysql.ExecuteNonQuery(sql);
             }
-            catch (Exception ex)
+            catch
             {
-                log.Info(LOG_TYPE.UI, $"{GetType().Name}::{MethodBase.GetCurrentMethod().Name}(): 테이블 생성 실패({mysql.Ip}:{mysql.Port}): {ex.Message}");
+                throw;
+            }
+
+            return rtv;
+        }
+
+        public int INSERT(NDMS_ALMORD_VO vo)
+        {
+            // COLUMN
+            string column, value;
+            // SQL
+            string sql;
+
+            int rtv;
+
+            try
+            {
+                column = "DSCODE, CD_DIST_OBSV, ALMCODE, ALMDE, ALMGB, ALMNOTE, ADMCODE";
+
+                {
+                    List<string> _temp_value = new List<string>
+                    {
+                        $"'{vo.Dscode}'",
+                        $"{vo.Cd_dist_obsv}",
+                        $"'{vo.AlmCode}'",
+                        $"'{vo.Almde}'",
+                        $"'{vo.Almgb}'",
+                        $"'{vo.Almnote}'",
+                        $"'{vo.Admcode}'"
+                    };
+
+                    value = string.Join(",", _temp_value);
+                }
+
+                //CREATE SQL
+                StringBuilder sb = new StringBuilder();
+                {
+                    sb.Append($"INSERT INTO {table} ");
+                    sb.Append($"({column})");
+                    sb.Append(" VALUES ");
+                    sb.Append($"({value})");
+
+                    sql = sb.ToString();
+                }
+
+                rtv = mysql.ExecuteNonQuery(sql);
+            }
+            catch
+            {
                 throw;
             }
 

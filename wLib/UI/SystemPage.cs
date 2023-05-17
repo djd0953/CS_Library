@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using wLib.DB;
-using static wLib.DB.AREA_CODE_T;
+using static wLib.AREA_CODE_T;
 
 namespace wLib.UI
 {

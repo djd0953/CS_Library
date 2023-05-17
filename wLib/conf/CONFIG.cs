@@ -37,6 +37,9 @@ namespace wLib
             }
         }
 
+        /// <summary>
+        /// // new CONFIG(string "설정 파일명", string "폴더명:기본값etc")
+        /// </summary>
         public CONFIG(string _file_name, string _dir_path = "etc")
         {
             home_path = System.Windows.Forms.Application.StartupPath;

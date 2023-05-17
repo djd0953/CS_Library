@@ -175,8 +175,8 @@ namespace wLib.DB
             try
             {
                 sql = $"INSERT INTO {table}" +
-                      $"(CD_DIST_OBSV, RCMD, Parm1, Parm2, Parm3, Parm4, RegDate, BStatus, RetData) " +
-                      $"VALUES('{vo.Cd_dist_obsv}', '{vo.Rcmd}', '{vo.Parm1}', '{vo.Parm2}', '{vo.Parm3}', '{vo.Parm4}', '{vo.RegDate}', '{vo.BStatus}', '{vo.RetData}') ";
+                      $"(CD_DIST_OBSV, RCMD, Parm1, Parm2, Parm3 , RegDate, BStatus, RetData) " +
+                      $"VALUES('{vo.Cd_dist_obsv}', '{vo.Rcmd}', '{vo.Parm1}', '{vo.Parm2}', '{vo.Parm3}', '{vo.RegDate}', '{vo.BStatus}', '{vo.RetData}') ";
 
                 rtv = base.Insert(sql);
             }

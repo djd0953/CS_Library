@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace wLib.PROTOCOL
 {
+    public enum GATE_STATUS { UNKNOWN, OPEN, CLOSE, UPLOCK, DOWNLOCK }
+
     interface IGATE_T
     {
         void Open();

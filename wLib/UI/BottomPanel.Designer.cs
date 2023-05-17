@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.bottomLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.configButton = new System.Windows.Forms.Button();
-            this.clockPanel = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.bottomLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.configButton = new System.Windows.Forms.Button();
+            this.clockPanel = new System.Windows.Forms.Label();
             this.refresh_timer = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
-            this.bottomLayoutPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.bottomLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -54,50 +54,8 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(400, 100);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(450, 100);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // bottomLayoutPanel
-            // 
-            this.bottomLayoutPanel.ColumnCount = 4;
-            this.bottomLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
-            this.bottomLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
-            this.bottomLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.bottomLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.bottomLayoutPanel.Controls.Add(this.configButton, 2, 0);
-            this.bottomLayoutPanel.Controls.Add(this.clockPanel, 0, 0);
-            this.bottomLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bottomLayoutPanel.Location = new System.Drawing.Point(0, 70);
-            this.bottomLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.bottomLayoutPanel.Name = "bottomLayoutPanel";
-            this.bottomLayoutPanel.RowCount = 1;
-            this.bottomLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.bottomLayoutPanel.Size = new System.Drawing.Size(400, 30);
-            this.bottomLayoutPanel.TabIndex = 15;
-            // 
-            // configButton
-            // 
-            this.configButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.configButton.Location = new System.Drawing.Point(303, 4);
-            this.configButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.configButton.Name = "configButton";
-            this.configButton.Size = new System.Drawing.Size(74, 22);
-            this.configButton.TabIndex = 1;
-            this.configButton.TabStop = false;
-            this.configButton.Text = "Config ▷";
-            this.configButton.UseVisualStyleBackColor = true;
-            // 
-            // clockPanel
-            // 
-            this.clockPanel.AutoSize = true;
-            this.clockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clockPanel.Font = new System.Drawing.Font("맑은 고딕", 8F);
-            this.clockPanel.Location = new System.Drawing.Point(3, 0);
-            this.clockPanel.Name = "clockPanel";
-            this.clockPanel.Size = new System.Drawing.Size(134, 30);
-            this.clockPanel.TabIndex = 2;
-            this.clockPanel.Text = "0000-00-00 00:00:00";
-            this.clockPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel2
             // 
@@ -112,7 +70,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(400, 70);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(450, 70);
             this.tableLayoutPanel2.TabIndex = 17;
             // 
             // textBox1
@@ -123,7 +81,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(394, 30);
+            this.textBox1.Size = new System.Drawing.Size(444, 30);
             this.textBox1.TabIndex = 5;
             // 
             // button1
@@ -142,6 +100,48 @@
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // bottomLayoutPanel
+            // 
+            this.bottomLayoutPanel.ColumnCount = 4;
+            this.bottomLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.bottomLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.bottomLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.bottomLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.bottomLayoutPanel.Controls.Add(this.configButton, 2, 0);
+            this.bottomLayoutPanel.Controls.Add(this.clockPanel, 0, 0);
+            this.bottomLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bottomLayoutPanel.Location = new System.Drawing.Point(0, 70);
+            this.bottomLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.bottomLayoutPanel.Name = "bottomLayoutPanel";
+            this.bottomLayoutPanel.RowCount = 1;
+            this.bottomLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.bottomLayoutPanel.Size = new System.Drawing.Size(450, 30);
+            this.bottomLayoutPanel.TabIndex = 15;
+            // 
+            // configButton
+            // 
+            this.configButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configButton.Location = new System.Drawing.Point(353, 4);
+            this.configButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.configButton.Name = "configButton";
+            this.configButton.Size = new System.Drawing.Size(94, 22);
+            this.configButton.TabIndex = 1;
+            this.configButton.TabStop = false;
+            this.configButton.Text = "Config ▷";
+            this.configButton.UseVisualStyleBackColor = true;
+            // 
+            // clockPanel
+            // 
+            this.clockPanel.AutoSize = true;
+            this.clockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clockPanel.Font = new System.Drawing.Font("맑은 고딕", 8F);
+            this.clockPanel.Location = new System.Drawing.Point(3, 0);
+            this.clockPanel.Name = "clockPanel";
+            this.clockPanel.Size = new System.Drawing.Size(144, 30);
+            this.clockPanel.TabIndex = 2;
+            this.clockPanel.Text = "0000-00-00 00:00:00";
+            this.clockPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // refresh_timer
             // 
             this.refresh_timer.Enabled = true;
@@ -155,13 +155,13 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "BottomPanel";
-            this.Size = new System.Drawing.Size(400, 100);
+            this.Size = new System.Drawing.Size(450, 100);
             this.Load += new System.EventHandler(this.On_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.bottomLayoutPanel.ResumeLayout(false);
-            this.bottomLayoutPanel.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.bottomLayoutPanel.ResumeLayout(false);
+            this.bottomLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }

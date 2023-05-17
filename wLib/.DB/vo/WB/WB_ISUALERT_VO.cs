@@ -27,30 +27,31 @@ namespace wLib.DB
         public string[] Std { get; set; } = new string[5];
 
         // TEMP COLUMN
-        public string NowCritical {  get; set; }
-        public string NextCritical { get; set; }
-        public string NowData { get; set; }
+        public double[] Data { get; set; } = new double[10];
+        public double[] SecondData { get; set; } = new double[10];
+        public double[] Dplace_stand { get; set; }
 
-        public object SetData(WB_ISUALERT_VO vo)
+        public double[] firstAlert { get; set; } = new double[5];
+        public double[] secondAlert { get; set; } = new double[5];
+
+        public void SetData(WB_ISUALERT_VO vo)
         {
-            WB_ISUALERT_VO rtv = new WB_ISUALERT_VO()
-            {
-                AltCode = vo.AltCode,
-                Cd_dist_obsv = vo.Cd_dist_obsv,
-                EquType = vo.EquType,
-                RainTime = vo.RainTime,
-                NowType = vo.NowType,
-                ChkCount = vo.ChkCount,
+            AltCode = vo.AltCode;
+            Cd_dist_obsv = vo.Cd_dist_obsv;
+            EquType = vo.EquType;
+            RainTime = vo.RainTime;
+            NowType = vo.NowType;
+            ChkCount = vo.ChkCount;
 
-                Use = vo.Use,
-                Std = vo.Std,
+            Use = vo.Use;
+            Std = vo.Std;
 
-                NowCritical = vo.NowCritical,
-                NextCritical = vo.NextCritical,
-                NowData = vo.NowData
-            };
+            Data = vo.Data;
+            SecondData = vo.SecondData;
+            Dplace_stand = vo.Dplace_stand;
 
-            return rtv;
+            firstAlert = vo.firstAlert;
+            secondAlert = vo.secondAlert;
         }
     }
 }

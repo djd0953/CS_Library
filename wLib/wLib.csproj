@@ -70,7 +70,8 @@
     <Compile Include=".DB\dao\JH\JHGATE_DAO.cs" />
     <Compile Include=".DB\dao\JH\JHSENDMESSAGE_DAO.cs" />
     <Compile Include=".DB\dao\NDMS\NDMS_ADM_DAO.cs" />
-    <Compile Include=".DB\dao\NDMS\NDMS_ALERT_DAO.cs" />
+    <Compile Include=".DB\dao\NDMS\NDMS_ALMORD_DAO.cs" />
+    <Compile Include=".DB\dao\NDMS\NDMS_THOLD_DAO.cs" />
     <Compile Include=".DB\dao\NDMS\NDMS_DATA_DAO.cs" />
     <Compile Include=".DB\dao\NDMS\NDMS_EQUIP_DAO.cs" />
     <Compile Include=".DB\dao\OP\ORDERRESULTVIEW_DAO.cs" />
@@ -80,8 +81,12 @@
     <Compile Include=".DB\dao\WB\WB_BRDSTATUS_DTMF_DAO.cs" />
     <Compile Include=".DB\dao\WB\WB_DISPLAY_DAO.cs" />
     <Compile Include=".DB\dao\WB\WB_ISUALERTGROUP_DAO.cs" />
+    <Compile Include=".DB\dao\WB\WB_ISULIST_DAO.cs" />
     <Compile Include=".DB\dao\WB\WB_ISUALERT_DAO.cs" />
     <Compile Include=".DB\dao\WB\WB_ISSUESTATUS_DAO.cs" />
+    <Compile Include=".DB\dao\WB\WB_PARKCARNOW_DAO.cs" />
+    <Compile Include=".DB\dao\WB\WB_PARKSMSLIST_DAO.cs" />
+    <Compile Include=".DB\dao\WB\WB_PARKSMSMENT_DAO.cs" />
     <Compile Include=".DB\dao\WB\WB_SMSUSER_DAO.cs" />
     <Compile Include=".DB\dao\WB\WB_ISUMENT_DAO.cs" />
     <Compile Include=".DB\dao\WB\WB_DISSTATUS_DAO.cs" />
@@ -116,7 +121,6 @@
     <Compile Include=".DB\dao\WB\WB_RECVMESSAGE_DAO.cs" />
     <Compile Include=".DB\dao\WB\WB_SENDMESSAGE_DAO.cs" />
     <Compile Include=".DB\dao\WB\WB_DATA_TILT_DAO.cs" />
-    <Compile Include=".DB\dto\AREA_LIST_VO.cs" />
     <Compile Include=".DB\dto\JHDATA_DTO.cs" />
     <Compile Include=".DB\dto\WB_DATA_SAVER.cs" />
     <Compile Include=".DB\exclass\CUBRID_T.cs" />
@@ -130,6 +134,8 @@
     <Compile Include=".DB\vo\JH\JHGATESTATUS_VO.cs" />
     <Compile Include=".DB\vo\JH\JHGATE_VO.cs" />
     <Compile Include=".DB\vo\JH\JHSENDMESSAGE_VO.cs" />
+    <Compile Include=".DB\vo\NDMS\NDMS_ALMORD_VO.cs" />
+    <Compile Include=".DB\vo\NDMS\NDMS_THOLD_VO.cs" />
     <Compile Include=".DB\vo\NDMS\NDMS_DATA_VO.cs" />
     <Compile Include=".DB\vo\NDMS\NDMS_EQUIP_VO.cs" />
     <Compile Include=".DB\vo\NMS_EQUIP_VO.cs" />
@@ -143,6 +149,9 @@
     <Compile Include=".DB\vo\WB\WB_ISULIST_VO.cs" />
     <Compile Include=".DB\vo\WB\WB_ISUALERT_VO.cs" />
     <Compile Include=".DB\vo\WB\WB_ISSUESTATUS_VO.cs" />
+    <Compile Include=".DB\vo\WB\WB_PARKCARNOW_VO.cs" />
+    <Compile Include=".DB\vo\WB\WB_PARKSMSLIST_VO.cs" />
+    <Compile Include=".DB\vo\WB\WB_PARKSMSMENT_VO.cs" />
     <Compile Include=".DB\vo\WB\WB_SMSUSER_VO.cs" />
     <Compile Include=".DB\vo\WB\WB_ISUMENT_VO.cs" />
     <Compile Include=".DB\vo\WB\WB_DISPLAY_VO.cs" />
@@ -198,6 +207,7 @@
     <Compile Include="conf\DATA_EXT_CONF.cs" />
     <Compile Include="conf\DB_CONF.cs" />
     <Compile Include="conf\DPS_CONF.cs" />
+    <Compile Include="conf\HTI_CONF.cs" />
     <Compile Include="conf\LOG_CONF.cs" />
     <Compile Include=".DB\dao\WB\WB_DATA_DPLACE_DAO.cs" />
     <Compile Include=".DB\dao\WB\WB_EQUIP_DAO.cs" />
@@ -208,6 +218,7 @@
     <Compile Include="conf\RUN_CONF.cs" />
     <Compile Include="conf\.XXX_CONF.cs" />
     <Compile Include="conf\STR_CONF.cs" />
+    <Compile Include="conf\CRI_CONF.cs" />
     <Compile Include="conf\TABLE_CONF.cs" />
     <Compile Include="conf\NDMS_TABLE_CONF.cs" />
     <Compile Include="conf\TX700_CONF.cs" />
@@ -230,6 +241,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\AREA_CODE_T.cs" />
     <Compile Include="UI\BottomPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
