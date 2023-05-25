@@ -15,6 +15,9 @@ namespace wLib.DB
     public class NDMS_ALMORD_DAO : DAO_T
     {
         protected LOG_T log = LOG_T.Instance;
+        protected MYSQL_T mysql;
+
+        protected string table = "TCM_COU_DNGR_ALMORD";
 
         public NDMS_ALMORD_DAO()
         {
@@ -43,7 +46,7 @@ namespace wLib.DB
 
                         if (vo.table_name == "TCM_COU_DNGR_ALMORD")
                         {
-                            sb.Append("`DSCODE` CHAR(10) NOT NULL COMMENT '재해위험지구코드/시설물 코드' COLLATE 'utf8_general_ci',");
+                        sb.Append("`DSCODE` CHAR(10) NOT NULL COMMENT '재해위험지구코드/시설물 코드' COLLATE 'utf8_general_ci',");
                             sb.Append("`CD_DIST_OBSV` INT(4) NOT NULL COMMENT '계측기 순번',");
                         }
                         else if (vo.table_name == "TCM_FLUD_ALMORD")
