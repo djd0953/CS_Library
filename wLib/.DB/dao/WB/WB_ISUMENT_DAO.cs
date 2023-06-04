@@ -67,12 +67,15 @@ namespace wLib.DB
             }
         }
 
-        public IEnumerable<WB_ISUMENT_VO> Select(string where = "1=1", string order = "MentCode", string limit = "1000")
+        public WB_ISUMENT_VO Select(string where = "MentCode = 1", string order = "MentCode", string limit = "1")
         {
-            List<WB_ISUMENT_VO> list = new List<WB_ISUMENT_VO>();
+            WB_ISUMENT_VO rtv = new WB_ISUMENT_VO();
 
             try
             {
+                Create();
+                DefaultInsert();
+
                 base.where = where;
                 base.order = order;
                 base.limit = limit;
@@ -82,11 +85,11 @@ namespace wLib.DB
                 {
                     foreach (DataRow row in dt.Rows)
                     {
-                        WB_ISUMENT_VO vo = new WB_ISUMENT_VO();
+                        rtv = new WB_ISUMENT_VO();
                         {
                             try
                             {
-                                vo.MentCode = Convert.ToString(row["MentCode"]); // AUTO
+                                rtv.MentCode = Convert.ToString(row["MentCode"]); // AUTO
                             }
                             catch { }
 
@@ -94,24 +97,22 @@ namespace wLib.DB
                             {
                                 try
                                 {
-                                    vo.BrdMent[i] = !string.IsNullOrEmpty(Convert.ToString(row[$"BrdMent{i}"])) ? Convert.ToString(row[$"BrdMent{i}"]) : null;
+                                    rtv.BrdMent[i] = !string.IsNullOrEmpty(Convert.ToString(row[$"BrdMent{i}"])) ? Convert.ToString(row[$"BrdMent{i}"]) : null;
                                 }
                                 catch { }
 
                                 try
                                 {
-                                    vo.DisMent[i] = !string.IsNullOrEmpty(Convert.ToString(row[$"DisMent{i}"])) ? Convert.ToString(row[$"DisMent{i}"]) : null;
+                                    rtv.DisMent[i] = !string.IsNullOrEmpty(Convert.ToString(row[$"DisMent{i}"])) ? Convert.ToString(row[$"DisMent{i}"]) : null;
                                 }
                                 catch { }
 
                                 try
                                 {
-                                    vo.SMSMent[i] = !string.IsNullOrEmpty(Convert.ToString(row[$"SMSMent{i}"])) ? Convert.ToString(row[$"SMSMent{i}"]) : null;
+                                    rtv.SMSMent[i] = !string.IsNullOrEmpty(Convert.ToString(row[$"SMSMent{i}"])) ? Convert.ToString(row[$"SMSMent{i}"]) : null;
                                 }
                                 catch { }
                             }
-
-                            list.Add(vo);
                         }
                     }
                 }
@@ -121,7 +122,31 @@ namespace wLib.DB
                 throw;
             }
 
-            return list;
+            return rtv;
+        }
+
+        public void DefaultInsert()
+        {
+            string sql;
+
+            try
+            {
+                sql = $"SELECT * FROM {table} WHERE MentCode = 1";
+                DataTable dt = mysql.ExecuteReader(sql);
+                if (dt == null)
+                {
+                    sql = $"INSERT INTO {table} (MentCode) VALUES (1)";
+                    if (mysql.ExecuteNonQuery(sql) == -1) { }
+                    else
+                    {
+                        log.Info($"{GetType().Name}::{MethodBase.GetCurrentMethod().Name}(): Ment Insert 성공 ({mysql.Ip}:{mysql.Port}.{table})");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Info(LOG_TYPE.UI, $"{GetType().Name}::{MethodBase.GetCurrentMethod().Name}(): Ment Insert 실패({mysql.Ip}:{mysql.Port}.{table}): {ex.Message}");
+            }
         }
     }
 }

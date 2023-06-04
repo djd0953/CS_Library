@@ -35,5 +35,7 @@ namespace wLib
         public string sub_obsv { get; set; } = "";
         public string gb_obsv { get; set; } = "";
         public string unit { get; set; } = "";
+
+        public string QUERY_WHERE { get; set; } = " 1 = 1 ";
     }
 }

@@ -209,7 +209,8 @@ namespace wLib.DB
                     sb.Append($"dplace_now = {now}, ");
                     sb.Append($"dplace_speed = {speed}, ");
                     sb.Append($"dplace_stand = {stand}, ");
-                    sb.Append($"dplace_change = {change}");
+                    sb.Append($"dplace_change = {change}, ");
+                    sb.Append($"RegDate = '{settingTime:yyyy-MM-dd HH:mm:ss}'");
 
                     sql = sb.ToString();
                 }

@@ -57,6 +57,14 @@ namespace wLib
 
                 config.LastReadTime = config.LastWriteTime;
 
+                config.WriteString(section, "OUTPUT_DIR", output_dir);
+
+                config.LastReadTime = config.LastWriteTime;
+
+                config.WriteString(section, "OUTPUT_DIR", output_dir);
+
+                config.LastReadTime = config.LastWriteTime;
+
                 config.ReleaseMutex();
             }
         }

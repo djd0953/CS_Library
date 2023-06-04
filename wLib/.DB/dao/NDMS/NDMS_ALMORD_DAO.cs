@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reflection;
@@ -15,9 +16,6 @@ namespace wLib.DB
     public class NDMS_ALMORD_DAO : DAO_T
     {
         protected LOG_T log = LOG_T.Instance;
-        protected MYSQL_T mysql;
-
-        protected string table = "TCM_COU_DNGR_ALMORD";
 
         public NDMS_ALMORD_DAO()
         {
@@ -90,6 +88,66 @@ namespace wLib.DB
             }
 
             return rtv;
+        }
+
+        public IEnumerable<NDMS_ALMORD_VO> Select(string where = "1=1", string order = "ALMDE DESC", string limit = "1000")
+        {
+            List<NDMS_ALMORD_VO> list = new List<NDMS_ALMORD_VO>();
+
+            try
+            {
+                base.where = where;
+                base.order = order;
+                base.limit = limit;
+
+                DataTable dt = base.Select();
+                if (dt != null)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        NDMS_ALMORD_VO vo = new NDMS_ALMORD_VO();
+                        {
+                            try
+                            {
+                                vo.Dscode = Convert.ToString(row["DSCODE"]); // AUTO
+                            }
+                            catch { }
+
+                            try
+                            {
+                                vo.Cd_dist_obsv = !string.IsNullOrEmpty(Convert.ToString(row["CD_DIST_OBSV"])) ? Convert.ToString(row["CD_DIST_OBSV"]) : null;
+                            }
+                            catch { }
+
+                            try
+                            {
+                                vo.Almde = !string.IsNullOrEmpty(Convert.ToString(row["ALMDE"])) ? Convert.ToString(row["ALMDE"]) : null;
+                            }
+                            catch { }
+
+                            try
+                            {
+                                vo.Almgb = !string.IsNullOrEmpty(Convert.ToString(row["ALMGB"])) ? Convert.ToString(row["ALMGB"]) : null;
+                            }
+                            catch { }
+
+                            try
+                            {
+                                vo.Almnote = !string.IsNullOrEmpty(Convert.ToString(row["ALMNOTE"])) ? Convert.ToString(row["ALMNOTE"]) : null;
+                            }
+                            catch { }
+
+                            list.Add(vo);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return list;
         }
 
         public int EndBeforeAlmord(NDMS_ALMORD_VO vo)

@@ -228,7 +228,8 @@ namespace wLib.DB
                     sb.Append($"ON DUPLICATE KEY UPDATE ");
                     sb.Append($"yester = '{yester}/{w_yester}', ");
                     sb.Append($"today = '{today}/{w_today}', ");
-                    sb.Append($"now = '{now}/{w_now}'");
+                    sb.Append($"now = '{now}/{w_now}', ");
+                    sb.Append($"RegDate = '{settingTime:yyyy-MM-dd HH:mm:ss}'");
 
                     sql = sb.ToString();
                 }

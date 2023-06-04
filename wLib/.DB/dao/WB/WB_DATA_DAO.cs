@@ -1332,20 +1332,22 @@ namespace wLib.DB
                     {
                         sb.Append($"water_yester = {yester}, ");
                         sb.Append($"water_today = {today}, ");
-                        sb.Append($"water_now = {now}");
+                        sb.Append($"water_now = {now}, ");
                     }
                     else if (dto.Type == WB_DATA_TYPE.SNOW)
                     {
                         sb.Append($"snow_yester = {yester}, ");
                         sb.Append($"snow_today = {today}, ");
-                        sb.Append($"snow_hour = {now}");
+                        sb.Append($"snow_hour = {now}, ");
                     }
                     else
                     {
                         sb.Append($"yester = {yester}, ");
                         sb.Append($"today = {today}, ");
-                        sb.Append($"now = {now}");
+                        sb.Append($"now = {now}, ");
                     }
+
+                    sb.Append($"RegDate = '{settingTime:yyyy-MM-dd HH:mm:ss}'");
 
                     sql = sb.ToString();
                 }

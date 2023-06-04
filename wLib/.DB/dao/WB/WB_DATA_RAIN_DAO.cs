@@ -183,7 +183,8 @@ namespace wLib.DB
                     sb.Append($"mov_3h = {mov3h}, ");
                     sb.Append($"mov_6h = {mov6h}, ");
                     sb.Append($"mov_12h = {mov12h}, ");
-                    sb.Append($"mov_24h = {mov24h}");
+                    sb.Append($"mov_24h = {mov24h}, ");
+                    sb.Append($"RegDate = '{settingTime:yyyy-MM-dd HH:mm:ss}'");
 
                     sql = sb.ToString();
                 }

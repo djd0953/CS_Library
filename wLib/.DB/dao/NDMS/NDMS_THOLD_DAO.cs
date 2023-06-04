@@ -15,9 +15,6 @@ namespace wLib.DB
     public class NDMS_THOLD_DAO : DAO_T
     {
         protected LOG_T log = LOG_T.Instance;
-        protected MYSQL_T mysql;
-
-        protected string table = "TCM_DOU_DD_THOLD";
 
         public NDMS_THOLD_DAO()
         {
@@ -27,15 +24,10 @@ namespace wLib.DB
         public NDMS_THOLD_DAO(MYSQL_T mysql)
         {
             base.mysql = mysql;
+            this.table = "TCM_DOU_DD_THOLD";
         }
 
         public int Create(NDMS_THOLD_VO vo)
-        {
-            this.mysql = mysql;
-            this.table = table_name;
-        }
-
-        public int CREATE()
         {
             string sql;
             int rtv = 0;
@@ -62,7 +54,7 @@ namespace wLib.DB
 
                         sql = sb.ToString();
                     }
-                    rtv = 0;
+
                     rtv = mysql.ExecuteNonQuery(sql);
                     if (rtv == -1)
                     {
